@@ -37,7 +37,7 @@ const MutiplePage = () => {
 					handleButtonClick={handleButtonClick}
 				/>
 			</main>
-			<Link to="/mutiple" className="block text-center">
+			<Link to="/fillIn" className="block text-center">
 				Next
 			</Link>
 		</>
