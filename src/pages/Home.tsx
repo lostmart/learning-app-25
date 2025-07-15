@@ -1,7 +1,9 @@
+import { Link } from "react-router"
+
 const Home = () => {
 	return (
-		<main>
-			<h1>Home</h1>
+		<main className="flex min-h-screen flex-col items-center justify-center">
+			<Link to="/mutiple">Start !</Link>
 		</main>
 	)
 }
