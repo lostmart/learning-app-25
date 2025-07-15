@@ -7,8 +7,8 @@ import RenderOptions from "../components/RenderOptions"
 
 const MutiplePage = () => {
 	const navigate = useNavigate()
-	const options = ["En la pizza", "En el parque", "La cancha", "La marmota"]
-	const correctOpt = "En la pizza"
+	const options = ["A pizza", "A dog", "A ninja", "A cat"]
+	const correctOpt = "A pizza"
 	const [points, setPoints] = useState(0)
 
 	const handleButtonClick = (option: string) => {
