@@ -19,7 +19,10 @@ const FillInBlank = () => {
 	}
 
 	return (
-		<main className="flex min-h-screen flex-col items-center p-2 max-w-xl mx-auto">
+		<main
+			className="flex flex-col items-center p-2 max-w-xl mx-auto"
+			style={{ minHeight: "85vh" }}
+		>
 			<PointsHolder score={points} />
 			<ExerciseHeader
 				className="mb-4"
