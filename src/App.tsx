@@ -6,6 +6,7 @@ import FillInBlank from "./pages/FillInBlank"
 import WriteOptions from "./pages/WriteOptions"
 import VideoPage from "./pages/VideoPage"
 import Final from "./pages/Final"
+import Presentation from "./pages/Presentation"
 
 const App = () => {
 	return (
@@ -18,6 +19,7 @@ const App = () => {
 					<Route path="/writeOpt" element={<WriteOptions />} />
 					<Route path="/video" element={<VideoPage />} />
 					<Route path="/final" element={<Final />} />
+					<Route path="/presentation" element={<Presentation />} />
 					<Route path="*" element={<Error />} />
 				</Routes>
 				<footer className="text-center p-4 border-t mt-8">
