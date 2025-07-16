@@ -5,6 +5,8 @@ import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 
+import dadImg from "../assets/01.png"
+
 const MutiplePage = () => {
 	const navigate = useNavigate()
 	const options = ["A pizza", "A dog", "A ninja", "A cat"]
@@ -30,7 +32,7 @@ const MutiplePage = () => {
 				<ExerciseHeader
 					className="mb-4 text-center"
 					titleText="What is this called ?"
-					imageUrl="https://images.pexels.com/photos/27025471/pexels-photo-27025471/free-photo-of-nourriture-aliments-pizza-restaurant.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+					imageUrl={dadImg}
 				/>
 				<RenderOptions
 					options={options}

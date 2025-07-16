@@ -26,7 +26,7 @@ const ExerciseHeader = ({ titleText, imageUrl, className }: ExrciseProps) => {
 					background:
 						"linear-gradient(90deg, rgb(69 69 69) 0%, rgb(133 133 133) 100%)",
 					maxWidth: "560px",
-					aspectRatio: "16/9",
+					// aspectRatio: "16/8",
 					display: "block",
 				}}
 			>
