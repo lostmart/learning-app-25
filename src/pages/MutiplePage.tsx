@@ -9,12 +9,17 @@ import dadImg from "../assets/01.png"
 
 const MutiplePage = () => {
 	const navigate = useNavigate()
-	const options = ["A pizza", "A dog", "A ninja", "A cat"]
-	const correctOpt = "A pizza"
+	const options = [
+		"Nice to meet you",
+		"This is my dad",
+		"This is my father",
+		"This is my mom",
+	]
+	const correctOpt = "This is my dad"
 	const [points, setPoints] = useState(0)
 
 	const handleButtonClick = (option: string) => {
-		console.log("running")
+		//console.log("running")
 
 		if (option === correctOpt) {
 			setPoints((prevPoints) => prevPoints + 1)
@@ -25,13 +30,13 @@ const MutiplePage = () => {
 	return (
 		<>
 			<main
-				className="flex flex-col items-center p-2 max-w-xl mx-auto"
-				style={{ minHeight: "85vh" }}
+				className="flex flex-col items-center p-2 max-w-2xl mx-auto"
+				style={{ minHeight: "80vh" }}
 			>
 				<PointsHolder score={points} />
 				<ExerciseHeader
 					className="mb-4 text-center"
-					titleText="What is this called ?"
+					titleText="Chloe, ... ?"
 					imageUrl={dadImg}
 				/>
 				<RenderOptions

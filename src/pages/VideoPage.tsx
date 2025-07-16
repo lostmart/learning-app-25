@@ -5,7 +5,7 @@ const VideoPage: React.FC = () => {
 	return (
 		<div
 			className="flex flex-col items-center justify-center p-4"
-			style={{ minHeight: "85vh" }}
+			style={{ minHeight: "80vh" }}
 		>
 			<div className="w-full max-w-3xl aspect-video mb-5">
 				<h2 className="text-2xl mb-4 text-center">Video</h2>

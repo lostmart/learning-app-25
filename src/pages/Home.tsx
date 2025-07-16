@@ -4,9 +4,11 @@ const Home = () => {
 	return (
 		<main
 			className="flex flex-col items-center justify-center"
-			style={{ minHeight: "85vh" }}
+			style={{ minHeight: "80vh" }}
 		>
-			<Link to="/video">Start !</Link>
+			<Link to="/video" className="text-2xl uppercase bg-blue-600 p-4">
+				Start !
+			</Link>
 		</main>
 	)
 }

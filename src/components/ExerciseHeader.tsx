@@ -22,7 +22,7 @@ const ExerciseHeader = ({ titleText, imageUrl, className }: ExrciseProps) => {
 				className={!mediaLoaded ? "animate-pulse" : ""}
 				style={{
 					width: "100%",
-					minWidth: "360px",
+					// minWidth: "656px",
 					background:
 						"linear-gradient(90deg, rgb(69 69 69) 0%, rgb(133 133 133) 100%)",
 					maxWidth: "560px",
