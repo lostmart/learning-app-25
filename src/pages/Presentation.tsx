@@ -1,8 +1,9 @@
 import { useState } from "react"
-import classRoom from "../assets/class-two.jpg"
 import helloAudio from "../assets/hello-one.mp3"
 import audioTwo from "../assets/hello-two.mp3"
 import teacerTwo from "../assets/04.png"
+import kid from "../assets/jack.png"
+import AudioPlayButton from "../components/AudioPlayButton"
 
 const Presentation = () => {
 	const [hasPlayed, setHasPlayed] = useState(false)
@@ -35,14 +36,10 @@ const Presentation = () => {
 	}
 	return (
 		<main
-			className="flex flex-col items-center justify-center  relative p-1"
+			className="flex flex-col max-w-2xl items-center justify-center relative p-1 mx-auto"
 			style={{ minHeight: "80vh" }}
 		>
-			<img
-				src={classRoom}
-				alt="teacher"
-				className={slide === 0 ? "" : "hidden"}
-			/>
+			<img src={kid} alt="teacher" className={slide === 0 ? "" : "hidden"} />
 			<img
 				src={teacerTwo}
 				alt="teacher"
@@ -50,17 +47,13 @@ const Presentation = () => {
 			/>
 
 			<p
-				className={`text-center text-gray-950 ${slide === 1 ? "hidden" : ""}`}
+				className={`text-center absolute bottom-25 text-gray-950 ${slide === 1 ? "hidden" : ""}`}
 				style={{
-					position: "absolute",
 					background: "#ffffffa6",
-					top: "60%",
 				}}
 			>
-				Hello Gale, my name is Linda. I’d like to introduce you to a simple app
-				I’ve been working on. It’s designed to support learning in a hands-on,
-				approachable way. It’s not overly complicated, just something to help
-				make understanding new topics a bit easier and more interactive.
+				Hello. My name is Jack, I’m nine. I’ve got a brother and a sister. This
+				is my favorite computer game. It’s called ‘Roblox’!
 			</p>
 
 			<p
@@ -75,8 +68,10 @@ const Presentation = () => {
 				I right
 			</p>
 
+			<AudioPlayButton audioUrl="https://magenta-fox-373734.hostingersite.com/wp-content/uploads/2025/08/01-jack.mp3" />
+
 			{!hasPlayed && (
-				<button className="absolute bottom-10" onClick={handlePlay}>
+				<button className="absolute bottom-0" onClick={handlePlay}>
 					Start Presentation
 				</button>
 			)}
