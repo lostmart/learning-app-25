@@ -1,17 +1,16 @@
 import { useState } from "react"
 
-import { Link, useNavigate } from "react-router"
+import { Link } from "react-router"
 import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 
 import AudioPlayButton from "../components/AudioPlayButton"
-import audioFile from "../assets/audio/01-this-is-my-dad.mp3"
 
 import dadImg from "../assets/01.png"
 
 const MutiplePage = () => {
-	const navigate = useNavigate()
+	// const navigate = useNavigate()
 	const options = [
 		"Nice to meet you",
 		"This is my dad",
@@ -42,7 +41,7 @@ const MutiplePage = () => {
 					titleText="Chloe, ... ?"
 					imageUrl={dadImg}
 				/>
-				<AudioPlayButton audioUrl={audioFile} />
+				<AudioPlayButton audioUrl="https://magenta-fox-373734.hostingersite.com/wp-content/uploads/2025/08/01-jack.mp3" />
 				<RenderOptions
 					options={options}
 					handleButtonClick={handleButtonClick}
