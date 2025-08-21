@@ -86,13 +86,16 @@ export default function AudioPlayButton({
 	}
 
 	return (
-		<div className={className}>
+		<div
+			className={`${className} absolute top-54 left-3 md:top-78 md:left-15 `}
+		>
 			<button
 				type="button"
 				onClick={toggle}
 				aria-label={label}
 				disabled={!!error}
-				className="inline-flex items-center gap-2 rounded-xl px-4 py-2 shadow-sm border"
+				className="inline-flex items-center gap-2 rounded-xl px-4 py-2 shadow-sm cursor-pointer bg-white text-blue-500"
+				style={{ top: "110px" }}
 			>
 				{error ? (
 					"Error"

@@ -33,7 +33,7 @@ const MutiplePage = () => {
 	return (
 		<>
 			<main
-				className="flex flex-col items-center p-2 max-w-2xl mx-auto"
+				className="flex flex-col items-center p-2 max-w-2xl mx-auto relative"
 				style={{ minHeight: "80vh" }}
 			>
 				<PointsHolder score={points} />
@@ -42,11 +42,7 @@ const MutiplePage = () => {
 					titleText="Chloe, ... ?"
 					imageUrl={dadImg}
 				/>
-				<AudioPlayButton
-					className="absolute"
-					style={{ left: "62px", top: "312px" }}
-					audioUrl={audioFile}
-				/>
+				<AudioPlayButton audioUrl={audioFile} />
 				<RenderOptions
 					options={options}
 					handleButtonClick={handleButtonClick}
