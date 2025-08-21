@@ -8,4 +8,10 @@ export default defineConfig({
 	css: {
 		postcss: "./postcss.config.js",
 	},
+	server: {
+		watch: {
+			// Chokidar patterns; ignore the WP plugin and all PHP
+			ignored: ["**/back-wp/**", "**/*.php"],
+		},
+	},
 })
