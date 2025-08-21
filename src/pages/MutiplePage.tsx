@@ -5,6 +5,9 @@ import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 
+import AudioPlayButton from "../components/AudioPlayButton"
+import audioFile from "../assets/audio/01-this-is-my-dad.mp3"
+
 import dadImg from "../assets/01.png"
 
 const MutiplePage = () => {
@@ -24,7 +27,7 @@ const MutiplePage = () => {
 		if (option === correctOpt) {
 			setPoints((prevPoints) => prevPoints + 1)
 		}
-		navigate("/fillIn")
+		// navigate("/fillIn")
 	}
 
 	return (
@@ -39,6 +42,7 @@ const MutiplePage = () => {
 					titleText="Chloe, ... ?"
 					imageUrl={dadImg}
 				/>
+				<AudioPlayButton audioUrl={audioFile} />
 				<RenderOptions
 					options={options}
 					handleButtonClick={handleButtonClick}
