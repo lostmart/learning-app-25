@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import { FiPause, FiPlay, FiLoader } from "react-icons/fi"
 
 type AudioPlayButtonProps = {
 	audioUrl: string // URL of the audio file
@@ -8,6 +9,7 @@ type AudioPlayButtonProps = {
 	preload?: "auto" | "metadata" | "none"
 	onEnded?: () => void // Callback when audio ends
 	className?: string
+	style?: React.CSSProperties
 }
 
 export default function AudioPlayButton({
@@ -21,26 +23,21 @@ export default function AudioPlayButton({
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
-	const [currentTime, setCurrentTime] = useState(0)
-	const [duration, setDuration] = useState<number | null>(null)
 
 	// Create/replace audio element when URL changes
 	useEffect(() => {
 		setError(null)
 		setIsLoading(true)
 		setIsPlaying(false)
-		setCurrentTime(0)
-		setDuration(null)
 
 		const audio = new Audio(audioUrl)
 		audio.preload = preload
 		audioRef.current = audio
 
 		const onLoadedMeta = () => {
-			setDuration(Number.isFinite(audio.duration) ? audio.duration : null)
 			setIsLoading(false)
 		}
-		const onTimeUpdate = () => setCurrentTime(audio.currentTime)
+
 		const onPlay = () => setIsPlaying(true)
 		const onPause = () => setIsPlaying(false)
 		const onEndedLocal = () => {
@@ -53,7 +50,6 @@ export default function AudioPlayButton({
 		}
 
 		audio.addEventListener("loadedmetadata", onLoadedMeta)
-		audio.addEventListener("timeupdate", onTimeUpdate)
 		audio.addEventListener("play", onPlay)
 		audio.addEventListener("pause", onPause)
 		audio.addEventListener("ended", onEndedLocal)
@@ -63,7 +59,6 @@ export default function AudioPlayButton({
 			audio.pause()
 			audio.src = ""
 			audio.removeEventListener("loadedmetadata", onLoadedMeta)
-			audio.removeEventListener("timeupdate", onTimeUpdate)
 			audio.removeEventListener("play", onPlay)
 			audio.removeEventListener("pause", onPause)
 			audio.removeEventListener("ended", onEndedLocal)
@@ -90,18 +85,6 @@ export default function AudioPlayButton({
 		}
 	}
 
-	const fmt = useMemo(
-		() => (s?: number | null) => {
-			if (s == null || !Number.isFinite(s)) return "--:--"
-			const m = Math.floor(s / 60)
-			const ss = Math.floor(s % 60)
-				.toString()
-				.padStart(2, "0")
-			return `${m}:${ss}`
-		},
-		[]
-	)
-
 	return (
 		<div className={className}>
 			<button
@@ -111,18 +94,16 @@ export default function AudioPlayButton({
 				disabled={!!error}
 				className="inline-flex items-center gap-2 rounded-xl px-4 py-2 shadow-sm border"
 			>
-				{error
-					? "Error"
-					: isLoading
-					? "Loading…"
-					: isPlaying
-					? "Pause"
-					: "Play"}
+				{error ? (
+					"Error"
+				) : isLoading ? (
+					<FiLoader />
+				) : isPlaying ? (
+					<FiPause />
+				) : (
+					<FiPlay />
+				)}
 			</button>
-
-			<span className="ml-3 text-sm tabular-nums">
-				{fmt(currentTime)} / {fmt(duration)}
-			</span>
 
 			{error && (
 				<p className="mt-2 text-red-600 text-sm" role="alert">

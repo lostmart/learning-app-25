@@ -42,7 +42,11 @@ const MutiplePage = () => {
 					titleText="Chloe, ... ?"
 					imageUrl={dadImg}
 				/>
-				<AudioPlayButton audioUrl={audioFile} />
+				<AudioPlayButton
+					className="absolute"
+					style={{ left: "62px", top: "312px" }}
+					audioUrl={audioFile}
+				/>
 				<RenderOptions
 					options={options}
 					handleButtonClick={handleButtonClick}
