@@ -12,6 +12,8 @@ const RenderOptions = ({ options, handleButtonClick }: renderOptProps) => {
 						onClick={() => handleButtonClick(opt)}
 						key={opt}
 						className="w-full p-1 mb-4 bg-blue-500 text-white cursor-pointer"
+						type="button"
+						style={{ maxWidth: "560px" }}
 					>
 						{opt}
 					</button>

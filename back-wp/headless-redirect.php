@@ -1,0 +1,1 @@
+C:/Users/lostm/Documents/CODE/NEXT/learning-app-25/back-wp/headless-redirect.php
