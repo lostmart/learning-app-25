@@ -86,9 +86,7 @@ export default function AudioPlayButton({
 	}
 
 	return (
-		<div
-			className={`${className} absolute top-54 left-3 md:top-78 md:left-15 `}
-		>
+		<div className={className}>
 			<button
 				type="button"
 				onClick={toggle}
