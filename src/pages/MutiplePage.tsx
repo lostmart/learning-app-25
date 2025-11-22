@@ -5,8 +5,6 @@ import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 
-import AudioPlayButton from "../components/AudioPlayButton"
-
 import dadImg from "../assets/01.png"
 
 const MutiplePage = () => {
@@ -31,21 +29,21 @@ const MutiplePage = () => {
 
 	return (
 		<>
-			<main
-				className="flex flex-col items-center p-2 max-w-2xl mx-auto relative"
-				style={{ minHeight: "80vh" }}
-			>
-				<PointsHolder score={points} />
-				<ExerciseHeader
-					className="mb-4 text-center"
-					titleText="Chloe, ... ?"
-					imageUrl={dadImg}
-				/>
-				<AudioPlayButton audioUrl="https://magenta-fox-373734.hostingersite.com/wp-content/uploads/2025/08/01-jack.mp3" />
-				<RenderOptions
-					options={options}
-					handleButtonClick={handleButtonClick}
-				/>
+			<PointsHolder score={points} />
+			<main style={{ minHeight: "80vh" }}>
+				<h2 className="text-center">This is my dad</h2>
+				<div className="flex flex-col items-center p-2 max-w-3xl mx-auto relative md:flex-row md:gap-4">
+					<ExerciseHeader
+						className="mb-4 text-center md:w-[70%]"
+						imageUrl={dadImg}
+					/>
+					<div className="w-full md:w-[25%]">
+						<RenderOptions
+							options={options}
+							handleButtonClick={handleButtonClick}
+						/>
+					</div>
+				</div>
 			</main>
 			<Link to="/fillIn" className="block text-center">
 				Next
