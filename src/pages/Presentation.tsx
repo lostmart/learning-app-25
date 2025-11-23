@@ -1,91 +1,68 @@
-import { useState } from "react"
-import helloAudio from "../assets/hello-one.mp3"
-// import audioTwo from "../assets/hello-two.mp3"
-// import teacerTwo from "../assets/04.png"
 import kid from "../assets/jack.png"
-import AudioPlayButton from "../components/AudioPlayButton"
 import { motion } from "motion/react"
 
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Navigation, Pagination } from "swiper/modules"
-
 import "swiper/swiper-bundle.css"
+import { useEffect, useState } from "react"
+import type { LessonData } from "../services/types"
+import { getLesson } from "../services/lessonService"
 
 const Presentation = () => {
-	// const [hasPlayed, setHasPlayed] = useState(false)
+	const [lesson, setLesson] = useState<LessonData | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
 
-	// const [slide, setSlide] = useState(0)
+	useEffect(() => {
+		async function loadLesson() {
+			try {
+				const data = await getLesson("lesson-1")
+				setLesson(data)
+			} catch (err) {
+				setError(err instanceof Error ? err.message : "Failed to load lesson")
+			} finally {
+				setLoading(false)
+			}
+		}
 
-	// const handlePlay = () => {
-	// 	const audio = new Audio(helloAudio)
-	// 	audio
-	// 		.play()
-	// 		.then(() => setHasPlayed(true))
-	// 		.catch((err) => {
-	// 			console.warn("Playback failed:", err)
-	// 		})
-	// }
+		loadLesson()
+	}, [])
 
-	// const handlePlayTwo = () => {
-	// 	const audio = new Audio(audioTwo)
-	// 	audio
-	// 		.play()
-	// 		.then(() => setHasPlayed(true))
-	// 		.catch((err) => {
-	// 			console.warn("Playback failed:", err)
-	// 		})
-	// }
+	if (loading) return <div>Loading...</div>
+	if (error) return <div>Error: {error}</div>
+	if (!lesson) return <div>No lesson found</div>
 
 	return (
 		<main style={{ minHeight: "80vh" }}>
-			<Swiper
-				navigation={true}
-				modules={[Navigation, Pagination]}
-				pagination={{
-					clickable: true,
-				}}
-				className="mySwiper"
-			>
-				<SwiperSlide>
-					<section className="flex justify-center flex-col items-center p-2 ">
-						<motion.img
-							initial={{ y: -100, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{
-								duration: 0.5,
-								scale: { type: "spring" },
-							}}
-							src={kid}
-							alt="teacher"
-							className="max-w-[460px]"
-						/>
-						<motion.div
-							className="absolute bottom-10 w-full max-w-[460px]"
-							style={{
-								background: "#ffffffa6",
-							}}
-							initial={{ y: 100, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{
-								duration: 0.6,
-								delay: 0.2,
-								scale: { type: "spring" },
-							}}
-						>
-							<p className="text-center p-2 text-gray-950">
-								Hello. My name is Jack, I’m nine. I’ve got a brother and a
-								sister. This is my favorite computer game. It’s called ‘Roblox’!
-							</p>
-							<AudioPlayButton
-								className="absolute bottom-18 left-2 z-50"
-								audioUrl="https://magenta-fox-373734.hostingersite.com/wp-content/uploads/2025/08/01-jack.mp3"
-							/>
-						</motion.div>
-					</section>
-				</SwiperSlide>
-
-				<SwiperSlide>Slide 2</SwiperSlide>
-			</Swiper>
+			<h2 className="text-center m-4 text-lg">{lesson.title}</h2>
+			<section className="flex justify-center relative items-center p-2 ">
+				<motion.img
+					initial={{ y: -100, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.5,
+						scale: { type: "spring" },
+					}}
+					src={kid}
+					alt="teacher"
+					className="max-w-[460px]"
+				/>
+				<motion.div
+					className="absolute bottom-10 w-full max-w-[460px] md:static md:w-[30%] md:max-w-none md:ml-4"
+					style={{
+						background: "#ffffffa6",
+					}}
+					initial={{ y: 100, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.6,
+						delay: 0.2,
+						scale: { type: "spring" },
+					}}
+				>
+					<p className="text-center p-2 text-gray-950">
+						{lesson.sections[0].type === "reading" && lesson.sections[0].text}
+					</p>
+				</motion.div>
+			</section>
 		</main>
 	)
 }

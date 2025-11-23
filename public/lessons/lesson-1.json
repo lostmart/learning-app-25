@@ -1,0 +1,72 @@
+{
+	"title": "A1 English Worksheet – Meet Mark",
+	"difficulty": "A1 (Beginner)",
+	"sections": [
+		{
+			"type": "reading",
+			"title": "Read the text",
+			"difficulty": "A1",
+			"text": "This is Mark. He is 10 years old. He lives in a small town with his mother, father, and sister. Mark goes to Green Hill School. His favorite subject is Math. After school, he plays football with his friends. On weekends, he likes to ride his bike and watch cartoons."
+		},
+		{
+			"type": "true_false",
+			"title": "True or False",
+			"difficulty": "A1",
+			"items": [
+				"Mark is 12 years old.",
+				"He lives with his family.",
+				"Mark’s favorite subject is Math.",
+				"He plays tennis after school.",
+				"On weekends, he rides his bike."
+			],
+			"answers": ["False", "True", "True", "False", "True"]
+		},
+		{
+			"type": "questions",
+			"title": "Answer the questions",
+			"difficulty": "A1",
+			"questions": [
+				"How old is Mark?",
+				"Where does Mark live?",
+				"What is Mark’s favorite subject?",
+				"What does Mark do after school?",
+				"What does he like to do on weekends?"
+			],
+			"answers": [
+				"He is 10 years old.",
+				"He lives in a small town.",
+				"His favorite subject is Math.",
+				"He plays football with his friends.",
+				"He likes to ride his bike and watch cartoons."
+			]
+		},
+		{
+			"type": "fill_in_the_blanks",
+			"title": "Fill in the blanks",
+			"difficulty": "A1",
+			"word_bank": ["school", "football", "sister", "cartoons", "bike"],
+			"sentences": [
+				"Mark goes to __________ every day.",
+				"He plays __________ after school.",
+				"He lives with his mother, father, and __________.",
+				"On weekends, he rides his __________.",
+				"He likes to watch __________."
+			],
+			"answers": ["school", "football", "sister", "bike", "cartoons"]
+		},
+		{
+			"type": "matching",
+			"title": "Vocabulary Match",
+			"difficulty": "A1",
+			"items": ["bike", "school", "football", "family", "cartoons"],
+			"instructions": "Match the words with pictures or meanings.",
+			"answers": [
+				"A two-wheeled vehicle",
+				"A place where children learn",
+				"A sport played with a ball",
+				"People who live with you",
+				"Animated TV shows"
+			]
+		}
+	]
+}
