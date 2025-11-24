@@ -46,7 +46,7 @@ const Presentation = () => {
 					className="max-w-[460px]"
 				/>
 				<motion.div
-					className="absolute bottom-10 w-full max-w-[460px] md:static md:w-[30%] md:max-w-none md:ml-4"
+					className="absolute bottom-10 w-full max-w-[460px] md:static md:w-[40%] md:max-w-none md:ml-4"
 					initial={{ y: 100, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{
@@ -71,9 +71,12 @@ const Presentation = () => {
 								<h3 className="text-center">True of false</h3>
 								<ul className="list-disc list-inside">
 									{lesson.sections[1].items.map((item, index) => (
-										<li key={index} className="text-gray-100">
-											{item}{" "}
-											<select name="" id="">
+										<li
+											key={index}
+											className="text-gray-100 flex justify-between items-center"
+										>
+											{item}
+											<select className="p-1 border-blue-500" id="">
 												<option value="">-</option>
 												<option className="text-black" value="true">
 													True
