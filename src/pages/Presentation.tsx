@@ -47,9 +47,6 @@ const Presentation = () => {
 				/>
 				<motion.div
 					className="absolute bottom-10 w-full max-w-[460px] md:static md:w-[30%] md:max-w-none md:ml-4"
-					style={{
-						background: "#ffffffa6",
-					}}
 					initial={{ y: 100, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{
@@ -58,9 +55,39 @@ const Presentation = () => {
 						scale: { type: "spring" },
 					}}
 				>
-					<p className="text-center p-2 text-gray-950">
+					<p className="text-center p-2 text-gray-100">
 						{lesson.sections[0].type === "reading" && lesson.sections[0].text}
 					</p>
+					<div className="w-full">
+						<div className="flex w-full items-center justify-center">
+							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
+							<span className="mx-2">Reading</span>
+							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
+						</div>
+					</div>
+					<article>
+						{lesson.sections[1].type === "true_false" && (
+							<>
+								<h3 className="text-center">True of false</h3>
+								<ul className="list-disc list-inside">
+									{lesson.sections[1].items.map((item, index) => (
+										<li key={index} className="text-gray-100">
+											{item}{" "}
+											<select name="" id="">
+												<option value="">-</option>
+												<option className="text-black" value="true">
+													True
+												</option>
+												<option className="text-black" value="false">
+													False
+												</option>
+											</select>
+										</li>
+									))}
+								</ul>
+							</>
+						)}
+					</article>
 				</motion.div>
 			</section>
 		</main>
