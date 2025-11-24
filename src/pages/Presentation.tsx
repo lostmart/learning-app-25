@@ -3,8 +3,9 @@ import { motion } from "motion/react"
 
 import "swiper/swiper-bundle.css"
 import { useEffect, useState } from "react"
-import type { LessonData } from "../services/types"
+import type { LessonData, TrueFalseSection } from "../services/types"
 import { getLesson } from "../services/lessonService"
+import TrueorFalse from "../components/TrueorFalse"
 
 const Presentation = () => {
 	const [lesson, setLesson] = useState<LessonData | null>(null)
@@ -65,32 +66,9 @@ const Presentation = () => {
 							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
 						</div>
 					</div>
-					<article>
-						{lesson.sections[1].type === "true_false" && (
-							<>
-								<h3 className="text-center">True of false</h3>
-								<ul className="list-disc list-inside">
-									{lesson.sections[1].items.map((item, index) => (
-										<li
-											key={index}
-											className="text-gray-100 flex justify-between items-center"
-										>
-											{item}
-											<select className="p-1 border-blue-500" id="">
-												<option value="">-</option>
-												<option className="text-black" value="true">
-													True
-												</option>
-												<option className="text-black" value="false">
-													False
-												</option>
-											</select>
-										</li>
-									))}
-								</ul>
-							</>
-						)}
-					</article>
+					{lesson.sections[1]?.type === "true_false" && (
+						<TrueorFalse section={lesson.sections[1] as TrueFalseSection} />
+					)}
 				</motion.div>
 			</section>
 		</main>
