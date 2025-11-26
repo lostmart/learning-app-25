@@ -101,7 +101,8 @@
 				{ "letter": "b", "text": "La cigarette d'un pompier" },
 				{ "letter": "c", "text": "Un four mal éteint dans une boulangerie" }
 			],
-			"correctAnswer": "c"
+			"correctAnswer": "c",
+			"imageUrl": "https://media.timeout.com/images/106286364/image.webp"
 		},
 		{
 			"id": 9,
@@ -112,7 +113,8 @@
 				{ "letter": "c", "text": "Bus" }
 			],
 			"correctAnswer": "b",
-			"note": "Red mailboxes, black cabs, red double decker bus"
+			"note": "Red mailboxes, black cabs, red double decker bus",
+			"imageUrl": "https://linguapress.com/intermediate/pix/black-cab.jpg"
 		}
 	]
 }
