@@ -1,11 +1,7 @@
 // Updated RenderOptions.tsx
-interface QuizOption {
-	letter: string
-	text: string
-}
 
 type RenderOptProps = {
-	options: QuizOption[]
+	options: any[]
 	handleButtonClick: (optionLetter: string) => void
 }
 

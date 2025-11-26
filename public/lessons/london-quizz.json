@@ -115,6 +115,61 @@
 			"correctAnswer": "b",
 			"note": "Red mailboxes, black cabs, red double decker bus",
 			"imageUrl": "https://linguapress.com/intermediate/pix/black-cab.jpg"
+		},
+		{
+			"id": 10,
+			"text": "En Angleterre, chaque jour vers 17h00, que se passe-t-il ?",
+			"options": [
+				{ "letter": "a", "text": "C'est « sleep time », l'heure de la sieste" },
+				{ "letter": "b", "text": "C'est « tea time », l'heure du thé" },
+				{ "letter": "c", "text": "C'est « coffee time », l'heure du café" }
+			],
+			"correctAnswer": "b",
+			"imageUrl": "https://cdn.shopify.com/s/files/1/0165/6045/5780/files/english-tea-blends.webp?v=1695372050"
+		},
+		{
+			"id": 11,
+			"text": "Combien y a-t-il de gardes lorsque la reine est au Palais de Buckingham ?",
+			"options": [
+				{ "letter": "a", "text": "2" },
+				{ "letter": "b", "text": "4" },
+				{ "letter": "c", "text": "6" }
+			],
+			"correctAnswer": "b",
+			"note": "Royal guards",
+			"imageUrl": "https://i.pinimg.com/originals/de/7c/1a/de7c1a7d9f1beb1b5b8dac7cb926db44.jpg"
+		},
+		{
+			"id": 12,
+			"text": "Quel animal pourras-tu voir facilement dans les parcs londoniens ?",
+			"options": [
+				{ "letter": "a", "text": "L'écureuil gris" },
+				{ "letter": "b", "text": "Le flamant rose" },
+				{ "letter": "c", "text": "Le loup" }
+			],
+			"correctAnswer": "a",
+			"note": "Grey squirrel",
+			"imageUrl": "https://1.bp.blogspot.com/-16yGycYIgeY/UYY3DrtK_3I/AAAAAAAAABI/WUwJAbOfUpU/s1600/Photo+169.jpg"
+		},
+		{
+			"id": 13,
+			"text": "Qui est l'auteur de « Roméo et Juliette » ?",
+			"options": [
+				{ "letter": "a", "text": "Racine" },
+				{ "letter": "b", "text": "Molière" },
+				{ "letter": "c", "text": "Shakespeare" }
+			],
+			"correctAnswer": "c"
+		},
+		{
+			"id": 14,
+			"text": "Quel sport a été inventé par les Anglais ?",
+			"options": [
+				{ "letter": "a", "text": "Le cricket" },
+				{ "letter": "b", "text": "Le surf" },
+				{ "letter": "c", "text": "Le handball" }
+			],
+			"correctAnswer": "a"
 		}
 	]
 }
