@@ -8,6 +8,7 @@ import VideoPage from "./pages/VideoPage"
 import Final from "./pages/Final"
 import Presentation from "./pages/Presentation"
 import About from "./pages/About"
+import ReviewCards from "./pages/ReviewCards"
 
 const App = () => {
 	return (
@@ -22,12 +23,13 @@ const App = () => {
 					<Route path="/final" element={<Final />} />
 					<Route path="/presentation" element={<Presentation />} />
 					<Route path="/about" element={<About />} />
+					<Route path="/reviewCards" element={<ReviewCards />} />
 					<Route path="*" element={<Error />} />
 				</Routes>
 				<footer className="text-center p-4 border-t mt-8">
-					<Link to="/" className="text-blue-600 hover:underline">
+					{/* <Link to="/" className="text-blue-600 hover:underline">
 						Go Home
-					</Link>
+					</Link> */}
 				</footer>
 			</BrowserRouter>
 		</>

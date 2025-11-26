@@ -1,21 +1,27 @@
-type renderOptProps = {
-	options: string[]
-	handleButtonClick: (opt: string) => void
+// Updated RenderOptions.tsx
+interface QuizOption {
+	letter: string
+	text: string
 }
 
-const RenderOptions = ({ options, handleButtonClick }: renderOptProps) => {
+type RenderOptProps = {
+	options: QuizOption[]
+	handleButtonClick: (optionLetter: string) => void
+}
+
+const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 	return (
 		<>
 			{options.map((opt) => {
 				return (
 					<button
-						onClick={() => handleButtonClick(opt)}
-						key={opt}
+						onClick={() => handleButtonClick(opt.letter)}
+						key={opt.letter}
 						className="w-full p-1 mb-4 bg-blue-500 text-white cursor-pointer"
 						type="button"
 						style={{ maxWidth: "560px" }}
 					>
-						{opt}
+						{opt.letter.toUpperCase()}) {opt.text}
 					</button>
 				)
 			})}

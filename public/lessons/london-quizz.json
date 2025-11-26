@@ -1,0 +1,18 @@
+{
+	"title": "Londres quizz !",
+	"subtitle": "Tes connaissances sur Londres tout",
+	"description": "À toi de vérifier ce que tu connais...",
+	"questions": [
+		{
+			"id": 1,
+			"text": "Quel est le nom du fleuve qui traverse Londres ?",
+			"options": [
+				{ "letter": "a", "text": "Le Mississippi" },
+				{ "letter": "b", "text": "Le Tatami" },
+				{ "letter": "c", "text": "La Tamise" }
+			],
+			"correctAnswer": "c",
+			"note": "The River Thames"
+		}
+	]
+}
