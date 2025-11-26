@@ -15,7 +15,7 @@ interface QuizOption {
 interface QuizQuestion {
 	id: number
 	text: string
-	options: QuizOption[]
+	options: any[]
 	correctAnswer: string
 	imageUrl?: string
 	note?: string
