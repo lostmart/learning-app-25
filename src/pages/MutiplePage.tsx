@@ -121,14 +121,6 @@ const MutiplePage = () => {
 				<div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center">
 					<div className="bg-slate-900 p-6 rounded shadow-lg max-w-md w-full">
 						<h3 className="text-xl font-semibold mb-4">Feedback</h3>
-						<p className="mb-4">
-							You selected:{" "}
-							{
-								currentQuestion.options.find(
-									(option) => option.letter === currentQuestion.correctAnswer
-								)?.text
-							}
-						</p>
 						<p>{feedbackMessage}</p>
 					</div>
 				</div>
