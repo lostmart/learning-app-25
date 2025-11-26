@@ -4,13 +4,11 @@ import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 
-import dadImg from "../assets/london.jpeg"
-
 // Add interfaces here or import from types file
-interface QuizOption {
-	letter: string
-	text: string
-}
+// interface QuizOption {
+// 	letter: string
+// 	text: string
+// }
 
 interface QuizQuestion {
 	id: number
