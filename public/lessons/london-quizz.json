@@ -92,6 +92,27 @@
 			"correctAnswer": "a",
 			"note": "The Great Fire of London",
 			"imageUrl": "https://static01.nyt.com/images/2016/08/10/arts/10iht-greatfire10a/10iht-greatfire10a-videoSixteenByNineJumbo1600.jpg"
+		},
+		{
+			"id": 8,
+			"text": "Quelle est la cause de ce Grand incendie ?",
+			"options": [
+				{ "letter": "a", "text": "Une bougie renversée dans une bibliothèque" },
+				{ "letter": "b", "text": "La cigarette d'un pompier" },
+				{ "letter": "c", "text": "Un four mal éteint dans une boulangerie" }
+			],
+			"correctAnswer": "c"
+		},
+		{
+			"id": 9,
+			"text": "Dans les rues de Londres, qu'est-ce qui n'est pas rouge ?",
+			"options": [
+				{ "letter": "a", "text": "Boîtes aux lettres" },
+				{ "letter": "b", "text": "Taxi" },
+				{ "letter": "c", "text": "Bus" }
+			],
+			"correctAnswer": "b",
+			"note": "Red mailboxes, black cabs, red double decker bus"
 		}
 	]
 }
