@@ -48,7 +48,50 @@
 				{ "letter": "c", "text": "Sa loupe, sa pipe et son parapluie" }
 			],
 			"correctAnswer": "a",
-			"imageUrl": "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1200,h_630/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/ffnm1b0qm18goa0igxi0/Jack%20The%20Ripper%20Tour%20%3A%20R%C3%A9solvez%20le%20crime.jpg"
+			"imageUrl": "https://res.cloudinary.com/aenetworks/image/upload/c_fill,w_1200,h_630,g_auto/dpr_auto/f_auto/q_auto:eco/v1/gettyimages-178366909"
+		},
+		{
+			"id": 5,
+			"text": "Qui est Hercule Poirot ?",
+			"options": [
+				{ "letter": "a", "text": "Le jardinier de la reine" },
+				{ "letter": "b", "text": "Un voleur de légumes" },
+				{ "letter": "c", "text": "Un célèbre détective" }
+			],
+			"correctAnswer": "c",
+			"imageUrl": "https://www.telecablesat.fr/sites/default/files/styles/article/public/_hercule-poirot-30-ans_0.jpg?itok=JkX0sbs9"
+		},
+		{
+			"id": 6,
+			"text": "À quoi reconnaît-on un punk ?",
+			"options": [
+				{
+					"letter": "a",
+					"text": "À son tutu, ses ballerines et son serre-tête"
+				},
+				{
+					"letter": "b",
+					"text": "À sa crête d'Iroquois, ses piercings et son blouson clouté"
+				},
+				{
+					"letter": "c",
+					"text": "À ses longs cheveux, ses tatouages et ses lunettes noires"
+				}
+			],
+			"correctAnswer": "b",
+			"imageUrl": "https://img.centrefrance.com/KPhM0FMYnu__zoz2sUr1E8-sM0Qab1hl8Hu8i7f1P0Y/rs:fit:657:438:1:0/bG9jYWw6Ly8vMDAvMDAvMDUvNDUvNTAvMjAwMDAwNTQ1NTAyMg.webp"
+		},
+		{
+			"id": 7,
+			"text": "En quelle année a eu lieu le Grand incendie de Londres ?",
+			"options": [
+				{ "letter": "a", "text": "1666" },
+				{ "letter": "b", "text": "1777" },
+				{ "letter": "c", "text": "1888" }
+			],
+			"correctAnswer": "a",
+			"note": "The Great Fire of London",
+			"imageUrl": "https://static01.nyt.com/images/2016/08/10/arts/10iht-greatfire10a/10iht-greatfire10a-videoSixteenByNineJumbo1600.jpg"
 		}
 	]
 }
