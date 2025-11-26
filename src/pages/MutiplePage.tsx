@@ -61,6 +61,8 @@ const MutiplePage = () => {
 			} else {
 				// Quiz finished - navigate somewhere or show results
 				console.log("Quiz finished!")
+				setFeedbackMessage("Quizz finished!")
+				return
 			}
 		} else {
 			setFeedbackMessage("Incorrect!")
