@@ -217,6 +217,29 @@
 			],
 			"correctAnswer": "a",
 			"imageUrl": "https://d3dqioy2sca31t.cloudfront.net/Projects/cms/production/000/024/811/original/c56bd725101bef2aaef43b0def6a24c7/england-london-big-ben-river-night.jpg"
+		},
+		{
+			"id": 19,
+			"text": "Comment s'appelle la maison de la reine d'Angleterre ?",
+			"options": [
+				{ "letter": "a", "text": "Tower of London" },
+				{ "letter": "b", "text": "Westminster" },
+				{ "letter": "c", "text": "Buckingham Palace" }
+			],
+			"correctAnswer": "c",
+			"imageUrl": "https://www.telecablesat.fr/sites/default/files/styles/article/public/_hercule-poirot-30-ans_0.jpg?itok=JkX0sbs9"
+		},
+		{
+			"id": 20,
+			"text": "Quelle est la particularité du métro londonien ?",
+			"options": [
+				{ "letter": "a", "text": "C'est le plus rapide du monde" },
+				{ "letter": "b", "text": "C'est le plus vieux du monde" },
+				{ "letter": "c", "text": "C'est le plus long du monde" }
+			],
+			"correctAnswer": "b",
+			"note": "Underground 'the tube'",
+			"imageUrl": "https://thehistorypress.co.uk/wp-content/uploads/media/1393/lancaster_gate_tube-wpv_1020x800_center_center.jpg"
 		}
 	]
 }
