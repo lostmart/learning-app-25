@@ -2,7 +2,7 @@ import { useState } from "react"
 
 type ExrciseProps = {
 	titleText?: string
-	imageUrl: string
+	imageUrl?: string
 	className?: string
 }
 

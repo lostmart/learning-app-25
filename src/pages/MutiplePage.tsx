@@ -17,6 +17,7 @@ interface QuizQuestion {
 	text: string
 	options: QuizOption[]
 	correctAnswer: string
+	imageUrl?: string
 	note?: string
 }
 
@@ -57,18 +58,18 @@ const MutiplePage = () => {
 		if (optionLetter === currentQuestion.correctAnswer) {
 			setPoints((prevPoints) => prevPoints + 1)
 			setFeedbackMessage("Correct!")
-		} else {
-			setFeedbackMessage("Incorrect!")
-		}
-
-		setTimeout(() => {
-			setShowFeedback(false)
 			if (questionIndex < exerciseData.questions.length - 1) {
 				setQuestionIndex((prev) => prev + 1)
 			} else {
 				// Quiz finished - navigate somewhere or show results
 				console.log("Quiz finished!")
 			}
+		} else {
+			setFeedbackMessage("Incorrect!")
+		}
+
+		setTimeout(() => {
+			setShowFeedback(false)
 		}, 1300)
 	}
 
@@ -99,7 +100,7 @@ const MutiplePage = () => {
 					<ExerciseHeader
 						titleText={currentQuestion.text}
 						className="mb-4 text-center md:w-[70%]"
-						imageUrl={dadImg}
+						imageUrl={currentQuestion?.imageUrl}
 					/>
 					<div className="w-full md:w-[25%]">
 						<RenderOptions
