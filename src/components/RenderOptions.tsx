@@ -13,7 +13,7 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 					<button
 						onClick={() => handleButtonClick(opt.letter)}
 						key={opt.letter}
-						className="w-full p-1 mb-4 bg-blue-500 text-white cursor-pointer"
+						className="w-full p-2 mb-4 bg-blue-500 text-white cursor-pointer"
 						type="button"
 						style={{ maxWidth: "560px" }}
 					>

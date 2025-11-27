@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
+import FeedBack from "../components/FeedBack"
 
 // Add interfaces here or import from types file
 // interface QuizOption {
@@ -56,6 +57,12 @@ const MutiplePage = () => {
 		if (optionLetter === currentQuestion.correctAnswer) {
 			setPoints((prevPoints) => prevPoints + 1)
 			setFeedbackMessage("Correct!")
+		} else {
+			setFeedbackMessage("Incorrect!")
+		}
+
+		setTimeout(() => {
+			setShowFeedback(false)
 			if (questionIndex < exerciseData.questions.length - 1) {
 				setQuestionIndex((prev) => prev + 1)
 			} else {
@@ -64,12 +71,6 @@ const MutiplePage = () => {
 				setFeedbackMessage("Quizz finished!")
 				return
 			}
-		} else {
-			setFeedbackMessage("Incorrect!")
-		}
-
-		setTimeout(() => {
-			setShowFeedback(false)
 		}, 1300)
 	}
 
@@ -92,17 +93,16 @@ const MutiplePage = () => {
 
 	return (
 		<>
-			<PointsHolder score={points} />
 			<main style={{ minHeight: "80vh" }}>
 				<h2 className="text-center text-xl">{exerciseData.title}</h2>
 				<p className="text-center text-slate-600">{exerciseData.description}</p>
-				<div className="flex flex-col items-center p-2 max-w-3xl mx-auto relative md:flex-row md:gap-4">
+				<div className="flex flex-col items-center p-2 max-w-5xl mx-auto relative md:flex-row md:gap-4">
 					<ExerciseHeader
 						titleText={currentQuestion.text}
-						className="mb-4 text-center md:w-[70%]"
+						className="mb-4 text-center md:w-[67%]"
 						imageUrl={currentQuestion?.imageUrl}
 					/>
-					<div className="w-full md:w-[25%]">
+					<div className="w-full md:w-[33%]">
 						<RenderOptions
 							options={currentQuestion.options}
 							handleButtonClick={handleButtonClick}
@@ -118,13 +118,12 @@ const MutiplePage = () => {
 			</button> */}
 			{/* feedback modal */}
 			{showFeedback && (
-				<div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center">
-					<div className="bg-slate-900 p-6 rounded shadow-lg max-w-md w-full">
-						<h3 className="text-xl font-semibold mb-4">Feedback</h3>
-						<p>{feedbackMessage}</p>
-					</div>
-				</div>
+				<FeedBack
+					feedbackMessage={feedbackMessage}
+					showFeedback={showFeedback}
+				/>
 			)}
+			<PointsHolder score={points} />
 		</>
 	)
 }
