@@ -33,6 +33,7 @@ const MutiplePage = () => {
 	const [points, setPoints] = useState(0)
 	const [showFeedback, setShowFeedback] = useState(false)
 	const [feedbackMessage, setFeedbackMessage] = useState("")
+	const [correctAnswer, setCorrectAnswer] = useState(false)
 
 	useEffect(() => {
 		fetch("lessons/london-quizz.json")
@@ -56,18 +57,22 @@ const MutiplePage = () => {
 
 		if (optionLetter === currentQuestion.correctAnswer) {
 			setPoints((prevPoints) => prevPoints + 1)
+			setCorrectAnswer(true)
 			setFeedbackMessage("Correct!")
 		} else {
 			setFeedbackMessage("Incorrect!")
+			setCorrectAnswer(false)
 		}
 
 		setTimeout(() => {
 			setShowFeedback(false)
-			if (questionIndex < exerciseData.questions.length - 1) {
+			if (
+				optionLetter === currentQuestion.correctAnswer &&
+				questionIndex < exerciseData.questions.length - 1
+			) {
 				setQuestionIndex((prev) => prev + 1)
 			} else {
 				// Quiz finished - navigate somewhere or show results
-				console.log("Quiz finished!")
 				setFeedbackMessage("Quizz finished!")
 				return
 			}
@@ -94,7 +99,7 @@ const MutiplePage = () => {
 	return (
 		<>
 			<main style={{ minHeight: "80vh" }}>
-				<h2 className="text-center text-xl">{exerciseData.title}</h2>
+				<h2 className="text-center text-2xl mt-4">{exerciseData.title}</h2>
 				<p className="text-center text-slate-600">{exerciseData.description}</p>
 				<div className="flex flex-col items-center p-2 max-w-5xl mx-auto relative md:flex-row md:gap-4">
 					<ExerciseHeader
@@ -102,7 +107,7 @@ const MutiplePage = () => {
 						className="mb-4 text-center md:w-[67%]"
 						imageUrl={currentQuestion?.imageUrl}
 					/>
-					<div className="w-full md:w-[33%]">
+					<div className="w-full md:w-[33%] flex flex-col items-center">
 						<RenderOptions
 							options={currentQuestion.options}
 							handleButtonClick={handleButtonClick}
@@ -121,6 +126,7 @@ const MutiplePage = () => {
 				<FeedBack
 					feedbackMessage={feedbackMessage}
 					showFeedback={showFeedback}
+					correctAnswer={correctAnswer}
 				/>
 			)}
 			<PointsHolder score={points} />

@@ -19,13 +19,14 @@ const ExerciseHeader = ({ titleText, imageUrl, className }: ExrciseProps) => {
 			<header className={className ? className : ""}>
 				<h2 className="text-xl my-2">{titleText}</h2>
 				<figure
-					className={!mediaLoaded ? "animate-pulse" : "" + " w-full block"}
+					className={
+						!mediaLoaded
+							? "animate-pulse"
+							: "" + " w-full block max-w-[560px] md:max-w-[680px] mx-auto mb-4"
+					}
 					style={{
-						// minWidth: "656px",
 						background:
 							"linear-gradient(90deg, rgb(69 69 69) 0%, rgb(133 133 133) 100%)",
-						maxWidth: "680px",
-						// aspectRatio: "16/8",
 					}}
 				>
 					<img
@@ -35,7 +36,7 @@ const ExerciseHeader = ({ titleText, imageUrl, className }: ExrciseProps) => {
 								: "rounded-sm mb-2 transition-opacity opacity-100"
 						}
 						src={imageUrl}
-						alt="no temas a la noche oscura"
+						alt="Exercise media"
 						onLoad={handleLoad}
 					/>
 				</figure>

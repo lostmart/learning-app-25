@@ -11,7 +11,11 @@ const ToggleSwitch = ({ value, onChange }: ToggleSwitchProps) => {
 			className={`
         relative w-[74px] h-8 rounded-full transition-colors duration-300
         flex items-center px-2
-        ${value ? "bg-green-500 justify-start" : "bg-gray-300 justify-end text-gray-700"}
+        ${
+					value
+						? "bg-green-500 justify-start"
+						: "bg-gray-300 justify-end text-gray-700"
+				}
       `}
 			aria-label={value ? "True" : "False"}
 		>
