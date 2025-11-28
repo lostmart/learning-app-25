@@ -33,7 +33,7 @@ const ExerciseHeader = ({ titleText, imageUrl, className }: ExrciseProps) => {
 						className={
 							!mediaLoaded
 								? "rounded-sm mb-2 transition-opacity opacity-0 ease-in-out"
-								: "rounded-sm mb-2 transition-opacity opacity-100 object-cover aspect-video ease-in-out"
+								: "rounded-sm mb-2 transition-opacity opacity-100 object-cover aspect-video ease-in-out w-full"
 						}
 						src={imageUrl}
 						alt="Exercise media"

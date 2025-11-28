@@ -4,6 +4,8 @@ import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 import FeedBack from "../components/FeedBack"
+import { TbPlayerTrackNext } from "react-icons/tb"
+import { VscDebugRestart } from "react-icons/vsc"
 
 // Add interfaces here or import from types file
 // interface QuizOption {
@@ -79,16 +81,21 @@ const MutiplePage = () => {
 		}, 1300)
 	}
 
-	// const handleNext = () => {
-	// 	if (!exerciseData) return
+	const handleSkipClick = () => {
+		if (!exerciseData) return
 
-	// 	if (questionIndex < exerciseData.questions.length - 1) {
-	// 		setQuestionIndex((prev) => prev + 1)
-	// 	} else {
-	// 		// Quiz finished - navigate somewhere or show results
-	// 		console.log("Quiz finished!")
-	// 	}
-	// }
+		if (questionIndex < exerciseData.questions.length - 1) {
+			setQuestionIndex((prev) => prev + 1)
+		} else {
+			// Quiz finished - navigate somewhere or show results
+			alert("Quiz finished!")
+		}
+	}
+
+	const handleRestartClick = () => {
+		setQuestionIndex(0)
+		setPoints(0)
+	}
 
 	if (!exerciseData) {
 		return <div>Loading...</div>
@@ -107,11 +114,18 @@ const MutiplePage = () => {
 						className="mb-4 text-center md:w-[67%]"
 						imageUrl={currentQuestion?.imageUrl}
 					/>
-					<div className="w-full md:w-[33%] flex flex-col items-center">
+					<div className="w-full md:w-[33%] flex flex-col justify-between gap-4">
 						<RenderOptions
 							options={currentQuestion.options}
 							handleButtonClick={handleButtonClick}
 						/>
+						<button
+							className="w-full p-2 mt-8 text-white cursor-pointer max-w-[560px] bg-gray-600 hover:bg-gray-700 font-medium flex items-center justify-center gap-2"
+							type="button"
+							onClick={handleSkipClick}
+						>
+							Skip <TbPlayerTrackNext />
+						</button>
 					</div>
 				</div>
 			</main>
@@ -130,6 +144,12 @@ const MutiplePage = () => {
 				/>
 			)}
 			<PointsHolder score={points} />
+			<button
+				className="block text-center cursor-pointer mx-auto m-4 px-6 py-2 bg-red-900 text-white rounded hover:bg-blue-700 transition flex items-center gap-2"
+				onClick={handleRestartClick}
+			>
+				Restart the quizz <VscDebugRestart />
+			</button>
 		</>
 	)
 }

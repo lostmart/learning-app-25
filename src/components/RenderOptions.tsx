@@ -33,7 +33,7 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 	]
 
 	return (
-		<>
+		<div className="flex flex-col items-center">
 			{options.map((opt, i) => {
 				return (
 					<button
@@ -47,7 +47,7 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 					</button>
 				)
 			})}
-		</>
+		</div>
 	)
 }
 
