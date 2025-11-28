@@ -53,6 +53,7 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 				const buttonVariants = {
 					hidden: {
 						opacity: 0,
+
 						x: -20,
 					},
 					visible: {
@@ -60,7 +61,7 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 						x: 0,
 						transition: {
 							duration: 0.4,
-							delay: i === 0 ? 1 : 1 + 0.7 + i * 0.08, // First button at 1s, others after first completes
+							delay: i === 0 ? 2 : 2 + 0.7 + i * 0.8, // First button at 1s, others after first completes
 						},
 					},
 				}
@@ -70,9 +71,8 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 						variants={buttonVariants}
 						onClick={() => handleButtonClick(opt.letter)}
 						key={i}
-						className={`w-full p-2 mb-4 text-white cursor-pointer ${colorsArray[i]} ${hoverColorsArray[i]} font-medium `}
+						className={`w-full p-2 mb-4 text-white cursor-pointer ${colorsArray[i]} ${hoverColorsArray[i]} font-medium max-w-[560px] flex items-center justify-center gap-2 rounded`}
 						type="button"
-						style={{ maxWidth: "560px" }}
 						whileHover={{ scale: 1.02 }} // Bonus: subtle hover effect
 						whileTap={{ scale: 0.98 }} // Bonus: click feedback
 					>

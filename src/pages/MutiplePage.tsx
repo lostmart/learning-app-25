@@ -1,5 +1,6 @@
 // Updated MutiplePage.tsx
 import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
 import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
@@ -114,18 +115,21 @@ const MutiplePage = () => {
 						className="mb-4 text-center md:w-[67%]"
 						imageUrl={currentQuestion?.imageUrl}
 					/>
-					<div className="w-full md:w-[33%] flex flex-col justify-between gap-4">
+					<div className="w-full md:w-[33%] min-h-[256px] flex flex-col justify-between gap-4">
 						<RenderOptions
 							options={currentQuestion.options}
 							handleButtonClick={handleButtonClick}
 						/>
-						<button
+						<motion.button
 							className="w-full p-2 mt-8 text-white cursor-pointer max-w-[560px] bg-gray-600 hover:bg-gray-700 font-medium flex items-center justify-center gap-2"
 							type="button"
 							onClick={handleSkipClick}
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ delay: 4.7, duration: 0.35 }}
 						>
 							Skip <TbPlayerTrackNext />
-						</button>
+						</motion.button>
 					</div>
 				</div>
 			</main>
