@@ -7,6 +7,7 @@ type RenderOptProps = {
 
 const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 	const colorsArray = [
+		"bg-teal-700",
 		"bg-cyan-700",
 		"bg-blue-600",
 		"bg-indigo-600",
@@ -20,6 +21,7 @@ const RenderOptions = ({ options, handleButtonClick }: RenderOptProps) => {
 	]
 
 	const hoverColorsArray = [
+		"hover:bg-teal-800",
 		"hover:bg-cyan-800",
 		"hover:bg-blue-800",
 		"hover:bg-indigo-700",
