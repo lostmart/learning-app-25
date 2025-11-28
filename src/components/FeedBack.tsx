@@ -1,12 +1,30 @@
 import { AnimatePresence, motion } from "motion/react"
 import { FiAlertTriangle } from "react-icons/fi"
 import { TiTick } from "react-icons/ti"
+import positiveImg from "../assets/positive.png"
+import negativeImg from "../assets/negative.png"
 
 type FeedBackProps = {
 	feedbackMessage: string
 	showFeedback: boolean
 	correctAnswer: boolean
 }
+
+const positiveFeedback = [
+	"Well done!",
+	"Great job!",
+	"You're correct!",
+	"Excellent work!",
+	"Keep it up!",
+]
+
+const negativeFeedback = [
+	"Incorrect",
+	"Try again",
+	"Mmm ... not quite",
+	"Wrong answer",
+	"Give it another shot",
+]
 
 const FeedBack = ({
 	feedbackMessage,
@@ -40,6 +58,15 @@ const FeedBack = ({
 							{feedbackMessage}
 							{correctAnswer ? <TiTick /> : <FiAlertTriangle />}
 						</p>
+						<p className="my-4">
+							{correctAnswer
+								? positiveFeedback[Math.floor(Math.random() * 5)]
+								: negativeFeedback[Math.floor(Math.random() * 5)]}
+						</p>
+						<img
+							src={correctAnswer ? positiveImg : negativeImg}
+							alt="feedback"
+						/>
 					</motion.div>
 				</motion.div>
 			)}
