@@ -8,16 +8,15 @@ import FeedBack from "../components/FeedBack"
 import { TbPlayerTrackNext } from "react-icons/tb"
 import { VscDebugRestart } from "react-icons/vsc"
 
-// Add interfaces here or import from types file
-// interface QuizOption {
-// 	letter: string
-// 	text: string
-// }
+interface QuizOption {
+	letter: string
+	text: string
+}
 
 interface QuizQuestion {
 	id: number
 	text: string
-	options: any[]
+	options: QuizOption[]
 	correctAnswer: string
 	imageUrl?: string
 	note?: string
@@ -37,19 +36,40 @@ const MutiplePage = () => {
 	const [showFeedback, setShowFeedback] = useState(false)
 	const [feedbackMessage, setFeedbackMessage] = useState("")
 	const [correctAnswer, setCorrectAnswer] = useState(false)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
+	const [quizStarted, setQuizStarted] = useState(false)
 
 	useEffect(() => {
-		fetch("lessons/london-quizz.json")
-			.then((response) => response.json())
-			.then((data) => {
-				console.log("Fetched data:", data)
+		const fetchQuizData = async () => {
+			try {
+				setLoading(true)
+				const response = await fetch("lessons/london-quizz.json")
+
+				if (!response.ok) {
+					throw new Error(`Failed to fetch quiz data: ${response.statusText}`)
+				}
+
+				const data = await response.json()
 				setExerciseData(data)
-				setQuestionIndex(0)
-			})
-			.catch((error) => {
-				console.error("Error fetching data:", error)
-			})
+			} catch (err) {
+				setError(
+					err instanceof Error
+						? err.message
+						: "An error occurred loading the quiz"
+				)
+				console.error("Error fetching quiz data:", err)
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		fetchQuizData()
 	}, [])
+
+	const handleStartQuiz = () => {
+		setQuizStarted(true)
+	}
 
 	const handleButtonClick = (optionLetter: string) => {
 		if (!exerciseData) return
@@ -69,15 +89,12 @@ const MutiplePage = () => {
 
 		setTimeout(() => {
 			setShowFeedback(false)
-			if (
-				optionLetter === currentQuestion.correctAnswer &&
-				questionIndex < exerciseData.questions.length - 1
-			) {
+
+			if (questionIndex < exerciseData.questions.length - 1) {
 				setQuestionIndex((prev) => prev + 1)
 			} else {
-				// Quiz finished - navigate somewhere or show results
-				setFeedbackMessage("Quizz finished!")
-				return
+				// Quiz finished
+				setFeedbackMessage("Quiz finished!")
 			}
 		}, 1300)
 	}
@@ -88,20 +105,88 @@ const MutiplePage = () => {
 		if (questionIndex < exerciseData.questions.length - 1) {
 			setQuestionIndex((prev) => prev + 1)
 		} else {
-			// Quiz finished - navigate somewhere or show results
-			alert("Quiz finished!")
+			// Quiz finished
+			setFeedbackMessage("Quiz finished!")
+			setShowFeedback(true)
 		}
 	}
 
 	const handleRestartClick = () => {
 		setQuestionIndex(0)
 		setPoints(0)
+		setShowFeedback(false)
+		setFeedbackMessage("")
+		setQuizStarted(false) // Return to welcome screen
+	}
+
+	if (loading) {
+		return <div className="text-center mt-8">Loading...</div>
+	}
+
+	if (error) {
+		return (
+			<div className="text-center mt-8 text-red-600">
+				<p>Error: {error}</p>
+				<button
+					onClick={() => window.location.reload()}
+					className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+				>
+					Retry
+				</button>
+			</div>
+		)
 	}
 
 	if (!exerciseData) {
-		return <div>Loading...</div>
+		return <div className="text-center mt-8">No quiz data available</div>
 	}
 
+	// Welcome Screen - shown before quiz starts
+	if (!quizStarted) {
+		return (
+			<main
+				style={{ minHeight: "80vh" }}
+				className="flex items-center justify-center"
+			>
+				<motion.div
+					className="max-w-2xl mx-auto p-8 text-center"
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.5 }}
+				>
+					<h1 className="text-4xl font-bold mb-4">{exerciseData.title}</h1>
+					{exerciseData.subtitle && (
+						<h2 className="text-xl text-slate-600 mb-4">
+							{exerciseData.subtitle}
+						</h2>
+					)}
+					<p className="text-lg text-slate-700 mb-6">
+						{exerciseData.description}
+					</p>
+
+					<div className="bg-slate-900  border border-slate-500 rounded-lg p-6 mb-8">
+						<p className="text-slate-100 mb-2">
+							📝 <strong>{exerciseData.questions.length}</strong> questions
+						</p>
+						<p className="text-slate-200">
+							🎯 Test your knowledge and see how many you can get right!
+						</p>
+					</div>
+
+					<motion.button
+						onClick={handleStartQuiz}
+						className="px-8 py-4 bg-slate-900 text-white text-xl rounded-lg hover:bg-blue-800 transition font-semibold shadow-lg cursor-pointer"
+						whileHover={{ scale: 1.05 }}
+						whileTap={{ scale: 0.95 }}
+					>
+						Start Quiz
+					</motion.button>
+				</motion.div>
+			</main>
+		)
+	}
+
+	// Active Quiz Screen
 	const currentQuestion = exerciseData.questions[questionIndex]
 
 	return (
@@ -133,13 +218,7 @@ const MutiplePage = () => {
 					</div>
 				</div>
 			</main>
-			{/* <button
-				onClick={handleNext}
-				className="block text-center cursor-pointer mx-auto mb-8 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-			>
-				Next
-			</button> */}
-			{/* feedback modal */}
+
 			{showFeedback && (
 				<FeedBack
 					feedbackMessage={feedbackMessage}
@@ -147,12 +226,14 @@ const MutiplePage = () => {
 					correctAnswer={correctAnswer}
 				/>
 			)}
+
 			<PointsHolder score={points} />
+
 			<button
-				className="block text-center cursor-pointer mx-auto m-4 px-6 py-2 bg-red-900 text-white rounded hover:bg-blue-700 transition flex items-center gap-2"
+				className="block text-center cursor-pointer mx-auto m-4 px-6 py-2 bg-red-900 text-white rounded hover:bg-red-800 transition flex items-center gap-2"
 				onClick={handleRestartClick}
 			>
-				Restart the quizz <VscDebugRestart />
+				Restart the quiz <VscDebugRestart />
 			</button>
 		</>
 	)

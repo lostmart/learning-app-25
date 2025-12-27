@@ -1,8 +1,6 @@
 import { AnimatePresence, motion } from "motion/react"
 import { FiAlertTriangle } from "react-icons/fi"
 import { TiTick } from "react-icons/ti"
-import positiveImg from "../assets/positive.png"
-import negativeImg from "../assets/negative.png"
 
 type FeedBackProps = {
 	feedbackMessage: string
@@ -47,26 +45,23 @@ const FeedBack = ({
 						transition={{ type: "spring", damping: 25, stiffness: 300 }}
 						className="bg-slate-900 p-6 rounded shadow-lg max-w-md w-full"
 					>
-						<h3 className="text-xl font-semibold mb-4">Feedback</h3>
+						<h3 className="text-xl text-center font-semibold mb-4">Feedback</h3>
 						<p
 							className={
 								correctAnswer
-									? "text-green-500 " + " flex items-center gap-2"
-									: "text-red-500 " + " flex items-center gap-2"
+									? "text-green-500 " +
+									  " flex items-center justify-center gap-2"
+									: "text-red-500 " + " flex items-center justify-center gap-2"
 							}
 						>
 							{feedbackMessage}
 							{correctAnswer ? <TiTick /> : <FiAlertTriangle />}
 						</p>
-						<p className="my-4">
+						<p className="my-4 text-center">
 							{correctAnswer
 								? positiveFeedback[Math.floor(Math.random() * 5)]
 								: negativeFeedback[Math.floor(Math.random() * 5)]}
 						</p>
-						<img
-							src={correctAnswer ? positiveImg : negativeImg}
-							alt="feedback"
-						/>
 					</motion.div>
 				</motion.div>
 			)}
