@@ -90,11 +90,16 @@ const MutiplePage = () => {
 		setTimeout(() => {
 			setShowFeedback(false)
 
-			if (questionIndex < exerciseData.questions.length - 1) {
-				setQuestionIndex((prev) => prev + 1)
-			} else {
-				// Quiz finished
-				setFeedbackMessage("Quiz finished!")
+			if (optionLetter === currentQuestion.correctAnswer) {
+				setPoints((prevPoints) => prevPoints + 1)
+				setCorrectAnswer(true)
+				setFeedbackMessage("Correct!")
+				if (questionIndex < exerciseData.questions.length - 1) {
+					setQuestionIndex((prev) => prev + 1)
+				} else {
+					// Quiz finished
+					setFeedbackMessage("Quiz finished!")
+				}
 			}
 		}, 1300)
 	}
