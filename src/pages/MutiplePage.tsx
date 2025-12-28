@@ -8,6 +8,9 @@ import FeedBack from "../components/FeedBack"
 import { TbPlayerTrackNext } from "react-icons/tb"
 import { VscDebugRestart } from "react-icons/vsc"
 
+import ReadingPanel from "../components/ReadingPanel"
+import { useLessonContext } from "../hooks/useLessonContext"
+
 interface QuizOption {
 	letter: string
 	text: string
@@ -30,6 +33,8 @@ interface QuizData {
 }
 
 const MutiplePage = () => {
+	const { lessonData } = useLessonContext()
+
 	const [exerciseData, setExerciseData] = useState<QuizData | null>(null)
 	const [questionIndex, setQuestionIndex] = useState(0)
 	const [points, setPoints] = useState(0)
@@ -66,6 +71,8 @@ const MutiplePage = () => {
 
 		fetchQuizData()
 	}, [])
+
+	const readingSection = lessonData?.sections.find((s) => s.type === "reading")
 
 	const handleStartQuiz = () => {
 		setQuizStarted(true)
@@ -198,6 +205,10 @@ const MutiplePage = () => {
 		<>
 			<main style={{ minHeight: "80vh" }}>
 				<h2 className="text-center text-2xl mt-4">{exerciseData.title}</h2>
+				{/* Reading Panel - collapsed by default */}
+				{readingSection && readingSection.type === "reading" && (
+					<ReadingPanel text={readingSection.text} />
+				)}
 				<p className="text-center text-slate-600">{exerciseData.description}</p>
 				<div className="flex flex-col items-center p-2 max-w-5xl mx-auto relative md:flex-row md:gap-4">
 					<ExerciseHeader
