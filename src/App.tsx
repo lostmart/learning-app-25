@@ -9,10 +9,11 @@ import Final from "./pages/Final"
 import Presentation from "./pages/Presentation"
 import About from "./pages/About"
 import ReviewCards from "./pages/ReviewCards"
+import { LessonProvider } from "./context/LessonContext"
 
 const App = () => {
 	return (
-		<>
+		<LessonProvider>
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
@@ -32,7 +33,7 @@ const App = () => {
 					</Link> */}
 				</footer>
 			</BrowserRouter>
-		</>
+		</LessonProvider>
 	)
 }
 
