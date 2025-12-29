@@ -18,7 +18,7 @@ const ReadingPanel = ({ text, initiallyOpen = false }: ReadingPanelProps) => {
 			{/* Toggle Button */}
 			<button
 				onClick={togglePanel}
-				className="w-full flex items-center justify-between px-6 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-lg transition-colors shadow-md"
+				className="w-full flex items-center justify-between px-6 py-4 bg-slate-800 hover:bg-blue-800 transition text-white rounded-t-md transition-colors cursor-pointer shadow-md"
 				aria-expanded={isOpen}
 				aria-controls="reading-content"
 			>
