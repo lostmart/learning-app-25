@@ -1,88 +1,58 @@
-// Updated MutiplePage.tsx
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { Link } from "react-router"
 import { motion } from "framer-motion"
+import { useLessonContext } from "../hooks/useLessonContext"
+import ReadingPanel from "../components/ReadingPanel"
 import PointsHolder from "../components/PointsHolder"
 import ExerciseHeader from "../components/ExerciseHeader"
 import RenderOptions from "../components/RenderOptions"
 import FeedBack from "../components/FeedBack"
 import { TbPlayerTrackNext } from "react-icons/tb"
 import { VscDebugRestart } from "react-icons/vsc"
+import type { MultipleChoiceSection } from "../services/types"
 
-import ReadingPanel from "../components/ReadingPanel"
-import { useLessonContext } from "../hooks/useLessonContext"
+const MultiplePage = () => {
+	const { lessonData, addScore, loading, error } = useLessonContext()
 
-interface QuizOption {
-	letter: string
-	text: string
-}
-
-interface QuizQuestion {
-	id: number
-	text: string
-	options: QuizOption[]
-	correctAnswer: string
-	imageUrl?: string
-	note?: string
-}
-
-interface QuizData {
-	title: string
-	subtitle: string
-	description: string
-	questions: QuizQuestion[]
-}
-
-const MutiplePage = () => {
-	const { lessonData } = useLessonContext()
-
-	const [exerciseData, setExerciseData] = useState<QuizData | null>(null)
 	const [questionIndex, setQuestionIndex] = useState(0)
 	const [points, setPoints] = useState(0)
 	const [showFeedback, setShowFeedback] = useState(false)
 	const [feedbackMessage, setFeedbackMessage] = useState("")
 	const [correctAnswer, setCorrectAnswer] = useState(false)
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
-	const [quizStarted, setQuizStarted] = useState(false)
+	const [completed, setCompleted] = useState(false)
 
-	useEffect(() => {
-		const fetchQuizData = async () => {
-			try {
-				setLoading(true)
-				const response = await fetch("lessons/london-quizz.json")
-
-				if (!response.ok) {
-					throw new Error(`Failed to fetch quiz data: ${response.statusText}`)
-				}
-
-				const data = await response.json()
-				setExerciseData(data)
-			} catch (err) {
-				setError(
-					err instanceof Error
-						? err.message
-						: "An error occurred loading the quiz"
-				)
-				console.error("Error fetching quiz data:", err)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		fetchQuizData()
-	}, [])
-
-	const readingSection = lessonData?.sections.find((s) => s.type === "reading")
-
-	const handleStartQuiz = () => {
-		setQuizStarted(true)
+	// Loading states
+	if (loading) {
+		return <div className="text-center mt-8">Loading...</div>
 	}
 
+	if (error || !lessonData) {
+		return (
+			<div className="text-center mt-8 text-red-600">
+				<p>Error loading lesson</p>
+			</div>
+		)
+	}
+
+	// Get sections from context
+	const readingSection = lessonData.sections.find((s) => s.type === "reading")
+	const multipleChoiceSection = lessonData.sections.find(
+		(s) => s.type === "multiple_choice"
+	) as MultipleChoiceSection | undefined
+
+	if (!multipleChoiceSection) {
+		return (
+			<div className="text-center mt-8">
+				No multiple choice questions available
+			</div>
+		)
+	}
+
+	const currentQuestion = multipleChoiceSection.questions[questionIndex]
+	const totalQuestions = multipleChoiceSection.questions.length
+
+	// Handle answer click
 	const handleButtonClick = (optionLetter: string) => {
-		if (!exerciseData) return
-
-		const currentQuestion = exerciseData.questions[questionIndex]
-
 		setShowFeedback(true)
 
 		if (optionLetter === currentQuestion.correctAnswer) {
@@ -90,126 +60,105 @@ const MutiplePage = () => {
 			setCorrectAnswer(true)
 			setFeedbackMessage("Correct!")
 		} else {
-			setFeedbackMessage("Incorrect!")
 			setCorrectAnswer(false)
+			setFeedbackMessage("Incorrect!")
 		}
 
 		setTimeout(() => {
 			setShowFeedback(false)
 
-			if (optionLetter === currentQuestion.correctAnswer) {
-				setPoints((prevPoints) => prevPoints + 1)
-				setCorrectAnswer(true)
-				setFeedbackMessage("Correct!")
-				if (questionIndex < exerciseData.questions.length - 1) {
-					setQuestionIndex((prev) => prev + 1)
-				} else {
-					// Quiz finished
-					setFeedbackMessage("Quiz finished!")
-				}
+			if (questionIndex < totalQuestions - 1) {
+				setQuestionIndex((prev) => prev + 1)
+			} else {
+				// Quiz complete - add final score to context
+				const finalScore =
+					optionLetter === currentQuestion.correctAnswer ? points + 1 : points
+				addScore(finalScore, totalQuestions)
+				setCompleted(true)
 			}
 		}, 1300)
 	}
 
+	// Handle skip
 	const handleSkipClick = () => {
-		if (!exerciseData) return
-
-		if (questionIndex < exerciseData.questions.length - 1) {
+		if (questionIndex < totalQuestions - 1) {
 			setQuestionIndex((prev) => prev + 1)
 		} else {
-			// Quiz finished
-			setFeedbackMessage("Quiz finished!")
-			setShowFeedback(true)
+			// Finished without answering last question
+			addScore(points, totalQuestions)
+			setCompleted(true)
 		}
 	}
 
+	// Handle restart
 	const handleRestartClick = () => {
 		setQuestionIndex(0)
 		setPoints(0)
 		setShowFeedback(false)
 		setFeedbackMessage("")
-		setQuizStarted(false) // Return to welcome screen
+		setCompleted(false)
 	}
 
-	if (loading) {
-		return <div className="text-center mt-8">Loading...</div>
-	}
-
-	if (error) {
-		return (
-			<div className="text-center mt-8 text-red-600">
-				<p>Error: {error}</p>
-				<button
-					onClick={() => window.location.reload()}
-					className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-				>
-					Retry
-				</button>
-			</div>
-		)
-	}
-
-	if (!exerciseData) {
-		return <div className="text-center mt-8">No quiz data available</div>
-	}
-
-	// Welcome Screen - shown before quiz starts
-	if (!quizStarted) {
+	// Completion screen
+	if (completed) {
 		return (
 			<main
+				className="flex flex-col items-center justify-center p-4"
 				style={{ minHeight: "80vh" }}
-				className="flex items-center justify-center"
 			>
 				<motion.div
-					className="max-w-2xl mx-auto p-8 text-center"
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
+					initial={{ scale: 0.8, opacity: 0 }}
+					animate={{ scale: 1, opacity: 1 }}
+					className="text-center max-w-2xl"
 				>
-					<h1 className="text-4xl font-bold mb-4">{exerciseData.title}</h1>
-					{exerciseData.subtitle && (
-						<h2 className="text-xl text-slate-600 mb-4">
-							{exerciseData.subtitle}
-						</h2>
-					)}
-					<p className="text-lg text-slate-700 mb-6">
-						{exerciseData.description}
+					<h2 className="text-4xl font-bold mb-4">Well Done! 🎉</h2>
+					<p className="text-2xl mb-8">
+						You got {points} out of {totalQuestions} correct!
 					</p>
 
-					<div className="bg-slate-900  border border-slate-500 rounded-lg p-6 mb-8">
-						<p className="text-slate-100 mb-2">
-							📝 <strong>{exerciseData.questions.length}</strong> questions
-						</p>
-						<p className="text-slate-200">
-							🎯 Test your knowledge and see how many you can get right!
-						</p>
-					</div>
+					<div className="flex gap-4 justify-center">
+						<Link
+							to="/fill-in"
+							className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-lg transition-colors shadow-lg"
+						>
+							Continue to Fill in the Blanks →
+						</Link>
 
-					<motion.button
-						onClick={handleStartQuiz}
-						className="px-8 py-4 bg-slate-900 text-white text-xl rounded-lg hover:bg-blue-800 transition font-semibold shadow-lg cursor-pointer"
-						whileHover={{ scale: 1.05 }}
-						whileTap={{ scale: 0.95 }}
-					>
-						Start Quiz
-					</motion.button>
+						<button
+							onClick={handleRestartClick}
+							className="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors flex items-center gap-2"
+						>
+							<VscDebugRestart /> Retry
+						</button>
+					</div>
 				</motion.div>
 			</main>
 		)
 	}
 
-	// Active Quiz Screen
-	const currentQuestion = exerciseData.questions[questionIndex]
-
+	// Active quiz
 	return (
 		<>
 			<main style={{ minHeight: "80vh" }}>
-				<h2 className="text-center text-2xl mt-4">{exerciseData.title}</h2>
+				<h2 className="text-center text-2xl mt-4 font-bold">
+					{lessonData.title}
+				</h2>
+				<p className="text-center text-slate-400 mb-4">
+					Multiple Choice Exercise
+				</p>
+
 				{/* Reading Panel - collapsed by default */}
 				{readingSection && readingSection.type === "reading" && (
 					<ReadingPanel text={readingSection.text} />
 				)}
-				<p className="text-center text-slate-600">{exerciseData.description}</p>
+
+				{/* Progress */}
+				<div className="text-center mb-4">
+					<span className="text-lg text-slate-400">
+						Question {questionIndex + 1} of {totalQuestions}
+					</span>
+				</div>
+
 				<div className="flex flex-col items-center p-2 max-w-5xl mx-auto relative md:flex-row md:gap-4">
 					<ExerciseHeader
 						titleText={currentQuestion.text}
@@ -227,7 +176,7 @@ const MutiplePage = () => {
 							onClick={handleSkipClick}
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ delay: 4.7, duration: 0.35 }}
+							transition={{ delay: 0.5, duration: 0.35 }}
 						>
 							Skip <TbPlayerTrackNext />
 						</motion.button>
@@ -244,15 +193,8 @@ const MutiplePage = () => {
 			)}
 
 			<PointsHolder score={points} />
-
-			<button
-				className="block text-center cursor-pointer mx-auto m-4 px-6 py-2 bg-red-900 text-white rounded hover:bg-red-800 transition flex items-center gap-2"
-				onClick={handleRestartClick}
-			>
-				Restart the quiz <VscDebugRestart />
-			</button>
 		</>
 	)
 }
 
-export default MutiplePage
+export default MultiplePage

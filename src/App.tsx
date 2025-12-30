@@ -10,6 +10,7 @@ import Presentation from "./pages/Presentation"
 import About from "./pages/About"
 import ReviewCards from "./pages/ReviewCards"
 import { LessonProvider } from "./context/LessonContext"
+import TrueFalsePage from "./pages/TrueFalsePage"
 
 const App = () => {
 	return (
@@ -17,12 +18,13 @@ const App = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="/mutiple" element={<MutiplePage />} />
+					<Route path="/multiple" element={<MutiplePage />} />
 					<Route path="/fillIn" element={<FillInBlank />} />
 					<Route path="/writeOpt" element={<WriteOptions />} />
 					<Route path="/video" element={<VideoPage />} />
 					<Route path="/final" element={<Final />} />
 					<Route path="/presentation" element={<Presentation />} />
+					<Route path="/true-false" element={<TrueFalsePage />} />
 					<Route path="/about" element={<About />} />
 					<Route path="/reviewCards" element={<ReviewCards />} />
 					<Route path="*" element={<Error />} />

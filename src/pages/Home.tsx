@@ -15,7 +15,7 @@ const Home = () => {
 			text: "FillIn",
 		},
 		{
-			link: "/mutiple",
+			link: "/multiple",
 			text: "Multiple",
 		},
 		{

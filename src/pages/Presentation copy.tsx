@@ -1,86 +1,76 @@
-import { useState } from "react"
-import helloAudio from "../assets/hello-one.mp3"
-import audioTwo from "../assets/hello-two.mp3"
-import teacerTwo from "../assets/04.png"
 import kid from "../assets/jack.png"
-import AudioPlayButton from "../components/AudioPlayButton"
+import { motion } from "motion/react"
+
+import "swiper/swiper-bundle.css"
+import { useEffect, useState } from "react"
+import type { LessonData, TrueFalseSection } from "../services/types"
+import { getLesson } from "../services/lessonService"
+import TrueorFalse from "../components/TrueorFalse"
 
 const Presentation = () => {
-	const [hasPlayed, setHasPlayed] = useState(false)
+	const [lesson, setLesson] = useState<LessonData | null>(null)
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string | null>(null)
 
-	const [slide, setSlide] = useState(0)
+	useEffect(() => {
+		async function loadLesson() {
+			try {
+				const data = await getLesson("lesson-1")
+				setLesson(data)
+			} catch (err) {
+				setError(err instanceof Error ? err.message : "Failed to load lesson")
+			} finally {
+				setLoading(false)
+			}
+		}
 
-	const handlePlay = () => {
-		const audio = new Audio(helloAudio)
-		audio
-			.play()
-			.then(() => setHasPlayed(true))
-			.catch((err) => {
-				console.warn("Playback failed:", err)
-			})
-	}
+		loadLesson()
+	}, [])
 
-	const handlePlayTwo = () => {
-		const audio = new Audio(audioTwo)
-		audio
-			.play()
-			.then(() => setHasPlayed(true))
-			.catch((err) => {
-				console.warn("Playback failed:", err)
-			})
-	}
+	if (loading) return <div>Loading...</div>
+	if (error) return <div>Error: {error}</div>
+	if (!lesson) return <div>No lesson found</div>
 
-	const nextSlide = () => {
-		setSlide(slide + 1)
-		handlePlayTwo()
-	}
 	return (
-		<main
-			className="flex flex-col max-w-2xl items-center justify-center relative p-1 mx-auto"
-			style={{ minHeight: "80vh" }}
-		>
-			<img src={kid} alt="teacher" className={slide === 0 ? "" : "hidden"} />
-			<img
-				src={teacerTwo}
-				alt="teacher"
-				className={slide === 0 ? "hidden" : ""}
-			/>
-
-			<p
-				className={`text-center absolute bottom-25 text-gray-950 ${slide === 1 ? "hidden" : ""}`}
-				style={{
-					background: "#ffffffa6",
-				}}
-			>
-				Hello. My name is Jack, I’m nine. I’ve got a brother and a sister. This
-				is my favorite computer game. It’s called ‘Roblox’!
-			</p>
-
-			<p
-				className={`text-center text-gray-950 ${slide === 0 ? "hidden" : ""}`}
-				style={{
-					position: "absolute",
-					background: "#ffffffa6",
-					top: "60%",
-				}}
-			>
-				and you can even change characters and voices with different accents, am
-				I right
-			</p>
-
-			<AudioPlayButton audioUrl="https://magenta-fox-373734.hostingersite.com/wp-content/uploads/2025/08/01-jack.mp3" />
-
-			{!hasPlayed && (
-				<button className="absolute bottom-0" onClick={handlePlay}>
-					Start Presentation
-				</button>
-			)}
-			<button
-				onClick={nextSlide}
-				className="absolute bottom-0 bg-blue-300 px-2"
-			>
-				Next
-			</button>
+		<main style={{ minHeight: "80vh" }}>
+			<h2 className="text-center m-4 text-lg">{lesson.title}</h2>
+			<section className="flex justify-center relative items-center p-2 ">
+				<motion.img
+					initial={{ y: -100, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.5,
+						scale: { type: "spring" },
+					}}
+					src={kid}
+					alt="teacher"
+					className="max-w-[460px]"
+				/>
+				<motion.div
+					className="absolute bottom-10 w-full max-w-[460px] md:static md:w-[40%] md:max-w-none md:ml-4"
+					initial={{ y: 100, opacity: 0 }}
+					animate={{ y: 0, opacity: 1 }}
+					transition={{
+						duration: 0.6,
+						delay: 0.2,
+						scale: { type: "spring" },
+					}}
+				>
+					<p className="text-center p-2 text-gray-100">
+						{lesson.sections[0].type === "reading" && lesson.sections[0].text}
+					</p>
+					<div className="w-full">
+						<div className="flex w-full items-center justify-center">
+							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
+							<span className="mx-2">Reading</span>
+							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
+						</div>
+					</div>
+					{lesson.sections[1]?.type === "true_false" && (
+						<TrueorFalse section={lesson.sections[1] as TrueFalseSection} />
+					)}
+				</motion.div>
+			</section>
 		</main>
 	)
 }

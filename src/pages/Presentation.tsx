@@ -1,40 +1,59 @@
-import kid from "../assets/jack.png"
+import { Link } from "react-router"
 import { motion } from "motion/react"
+import { useLessonContext } from "../hooks/useLessonContext"
+import kid from "../assets/jack.png"
 
-import "swiper/swiper-bundle.css"
-import { useEffect, useState } from "react"
-import type { LessonData, TrueFalseSection } from "../services/types"
-import { getLesson } from "../services/lessonService"
-import TrueorFalse from "../components/TrueorFalse"
+const ReadingPage = () => {
+	const { lessonData, loading, error } = useLessonContext()
 
-const Presentation = () => {
-	const [lesson, setLesson] = useState<LessonData | null>(null)
-	const [loading, setLoading] = useState(true)
-	const [error, setError] = useState<string | null>(null)
+	// Loading and error states
+	if (loading) {
+		return (
+			<div
+				className="flex items-center justify-center"
+				style={{ minHeight: "80vh" }}
+			>
+				<div className="text-xl">Loading lesson...</div>
+			</div>
+		)
+	}
 
-	useEffect(() => {
-		async function loadLesson() {
-			try {
-				const data = await getLesson("lesson-1")
-				setLesson(data)
-			} catch (err) {
-				setError(err instanceof Error ? err.message : "Failed to load lesson")
-			} finally {
-				setLoading(false)
-			}
-		}
+	if (error) {
+		return (
+			<div
+				className="flex items-center justify-center"
+				style={{ minHeight: "80vh" }}
+			>
+				<div className="text-xl text-red-600">Error: {error}</div>
+			</div>
+		)
+	}
 
-		loadLesson()
-	}, [])
+	if (!lessonData) {
+		return (
+			<div
+				className="flex items-center justify-center"
+				style={{ minHeight: "80vh" }}
+			>
+				<div className="text-xl">No lesson found</div>
+			</div>
+		)
+	}
 
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Error: {error}</div>
-	if (!lesson) return <div>No lesson found</div>
+	// Get reading section
+	const readingSection = lessonData.sections.find((s) => s.type === "reading")
+
+	if (!readingSection || readingSection.type !== "reading") {
+		return <div>No reading content available</div>
+	}
 
 	return (
 		<main style={{ minHeight: "80vh" }}>
-			<h2 className="text-center m-4 text-lg">{lesson.title}</h2>
-			<section className="flex justify-center relative items-center p-2 ">
+			<h2 className="text-center m-4 text-2xl font-bold">{lessonData.title}</h2>
+			<p className="text-center text-slate-400 mb-6">{lessonData.difficulty}</p>
+
+			<section className="flex flex-col md:flex-row justify-center items-center p-4 gap-8 max-w-6xl mx-auto">
+				{/* Character Animation */}
 				<motion.img
 					initial={{ y: -100, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
@@ -43,11 +62,13 @@ const Presentation = () => {
 						scale: { type: "spring" },
 					}}
 					src={kid}
-					alt="teacher"
-					className="max-w-[460px]"
+					alt="Character"
+					className="max-w-[460px] w-full"
 				/>
+
+				{/* Reading Content */}
 				<motion.div
-					className="absolute bottom-10 w-full max-w-[460px] md:static md:w-[40%] md:max-w-none md:ml-4"
+					className="w-full md:w-[50%] max-w-2xl"
 					initial={{ y: 100, opacity: 0 }}
 					animate={{ y: 0, opacity: 1 }}
 					transition={{
@@ -56,23 +77,38 @@ const Presentation = () => {
 						scale: { type: "spring" },
 					}}
 				>
-					<p className="text-center p-2 text-gray-100">
-						{lesson.sections[0].type === "reading" && lesson.sections[0].text}
-					</p>
-					<div className="w-full">
-						<div className="flex w-full items-center justify-center">
-							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
-							<span className="mx-2">Reading</span>
-							<hr className="border-t-2 border-gray-300 my-4 w-1/2" />
-						</div>
+					{/* Reading Label */}
+					<div className="flex items-center justify-center mb-6">
+						<hr className="border-t-2 border-gray-300 w-1/4" />
+						<span className="mx-4 text-lg font-medium">📖 Reading</span>
+						<hr className="border-t-2 border-gray-300 w-1/4" />
 					</div>
-					{lesson.sections[1]?.type === "true_false" && (
-						<TrueorFalse section={lesson.sections[1] as TrueFalseSection} />
-					)}
+
+					{/* Reading Text */}
+					<div className="bg-slate-900 border border-slate-700 rounded-lg p-6 mb-8">
+						<p className="text-slate-100 leading-relaxed text-lg">
+							{readingSection.text}
+						</p>
+					</div>
+
+					{/* Continue Button */}
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ delay: 1, duration: 0.5 }}
+						className="text-center"
+					>
+						<Link
+							to="/true-false"
+							className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-lg transition-colors shadow-lg"
+						>
+							Continue to Exercises →
+						</Link>
+					</motion.div>
 				</motion.div>
 			</section>
 		</main>
 	)
 }
 
-export default Presentation
+export default ReadingPage
