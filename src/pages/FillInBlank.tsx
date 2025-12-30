@@ -13,7 +13,7 @@ const FillInBlank = () => {
 	const [currentSentenceIndex, setCurrentSentenceIndex] = useState(0)
 	const [points, setPoints] = useState(0)
 	const [showFeedback, setShowFeedback] = useState(false)
-	const [feedbackMessage, setFeedbackMessage] = useState("")
+	// const [feedbackMessage, setFeedbackMessage] = useState("")
 	const [isCorrect, setIsCorrect] = useState(false)
 	const [completed, setCompleted] = useState(false)
 	const [usedWords, setUsedWords] = useState<string[]>([])
@@ -65,7 +65,7 @@ const FillInBlank = () => {
 
 		setIsCorrect(correct)
 		setShowFeedback(true)
-		setFeedbackMessage(correct ? "Correct!" : "Try again!")
+		// setFeedbackMessage(correct ? "Correct!" : "Try again!")
 
 		if (correct) {
 			setPoints((prev) => prev + 1)
