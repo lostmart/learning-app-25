@@ -10,6 +10,7 @@ import FeedBack from "../components/FeedBack"
 import { TbPlayerTrackNext } from "react-icons/tb"
 import { VscDebugRestart } from "react-icons/vsc"
 import type { MultipleChoiceSection } from "../services/types"
+import kid from "../assets/jack.png"
 
 const MultiplePage = () => {
 	const { lessonData, addScore, loading, error } = useLessonContext()
@@ -118,7 +119,7 @@ const MultiplePage = () => {
 
 					<div className="flex gap-4 justify-center">
 						<Link
-							to="/fill-in"
+							to="/fillIn"
 							className="inline-block px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold rounded-lg transition-colors shadow-lg"
 						>
 							Continue to Fill in the Blanks →
@@ -163,7 +164,7 @@ const MultiplePage = () => {
 					<ExerciseHeader
 						titleText={currentQuestion.text}
 						className="mb-4 text-center md:w-[67%]"
-						imageUrl={currentQuestion?.imageUrl}
+						imageUrl={kid}
 					/>
 					<div className="w-full md:w-[33%] min-h-[256px] flex flex-col justify-between gap-4">
 						<RenderOptions
