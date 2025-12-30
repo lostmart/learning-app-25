@@ -63,7 +63,7 @@ const ReadingPage = () => {
 					}}
 					src={kid}
 					alt="Character"
-					className="max-w-[460px] w-full"
+					className="max-w-[340px] w-full"
 				/>
 
 				{/* Reading Content */}
